@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<style scoped>
+.checked {color:red;background: red;}
+.slt {display: block;float:left;height: 40px;width: 40px;border:2px solid red;border-radius: 50%;}
+.border {border:2px solid red;}
+</style>
+<body>
+	<div id="hello">
+	  <ul>
+	  	<li v-for='(item,index) in cart'>
+	  		<a href="javascript:;" v-bind:class='[classDefault,{"checked":item.isB}]' v-on:click='btn(item)'></a>
+	  		<dl>
+	  			<dt>{{item.title+index}}</dt>
+	  			<dd>{{item.price*item.num | forMoney }}</dd>
+	  		</dl>
+	  		<button v-on:click='add(item,-1)'>-</button>
+	  		<input type="" name="" v-model='item.num'>
+	  		<button v-on:click='add(item,1)'>+</button>
+	  		<button v-on:click='delDate(item)'>删除</button>
+	  	</li>
+	  </ul>
+	  <a href="javascript:;" v-bind:class='[classDefault,{"checked":allB}]' v-on:click='checkAll(true)'></a>
+	  <button v-on:click='checkAll(false)'>取消全选</button>
+	  <span>{{allMoney | forMoney}}</span>
+	</div>
+	<div id='address'>
+		<ul>
+			<li v-for='(item,index) in filterAddress' v-bind:class='{border:index==currIndex}' v-on:click='currIndex=index'>
+				<h3>{{item.name}}</h3>
+				<p>{{item.address}}</p>
+				<span v-if='item.dft' style='color:red;'>默认地址</span>
+				<span v-if='!item.dft' v-on:click='setDft(item.id)'>设为默认地址</span>
+				<span></span>
+			</li>
+		</ul>
+		<button v-on:click='dftNum=addressList.length'>点击更多</button>
+		<ul>
+			<li v-bind:class='{border:ship==1}' v-on:click='ship=1'>
+				配送一
+			</li>
+			<li v-bind:class='{border:ship==2}' v-on:click='ship=2'>
+				配送二
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src='./vue.js'></script>
+	<script type="text/javascript" src='./cart.js'></script>
+</body>
+</html>
